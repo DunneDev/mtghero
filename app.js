@@ -20,19 +20,20 @@ const app = express();
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('path', path.join(__dirname, 'views'));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { title: 'Home' });
 });
 
 app.get('/singles', async (req, res) => {
     const cards = await Card.find({});
-    res.render('singles/index', { cards });
+    res.render('singles/index', { cards, title: 'Shop Singles' });
 });
 
 app.get('/singles/:id', async (req, res) => {
     const card = await Card.findById(req.params.id);
-    res.render('singles/show', { card });
+    res.render('singles/show', { card, title: card.name });
 });
 
 // app.get('/test', async (req, res) => {
