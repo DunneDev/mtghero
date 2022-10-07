@@ -4,7 +4,8 @@
   "description": "A place to buy and sell magic cards",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "node app.js",
+    "start": "nodeapp.js"
   },
   "repository": {
     "type": "git",
