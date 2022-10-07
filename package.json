@@ -1,0 +1,19 @@
+{
+  "name": "mtghero",
+  "version": "1.0.0",
+  "description": "A place to buy and sell magic cards",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DunneDev/mtghero.git"
+  },
+  "author": "Sebastien Dunne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DunneDev/mtghero/issues"
+  },
+  "homepage": "https://github.com/DunneDev/mtghero#readme"
+}
