@@ -2,13 +2,13 @@
 
 <main>
   <h1>Cart</h1>
-  <<ul>
+  <ul>
     <% for (card of cart){ %>
     <li><%= card.name %> </li>
     <% } %>
-    </ul>
+  </ul>
 
-    <form action="/sell" method="POST">
-      <button>Checkout</button>
-    </form>
+  <form action="/sell" method="POST">
+    <button>Checkout</button>
+  </form>
 </main>
