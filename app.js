@@ -30,36 +30,67 @@ app.get('/', (req, res) => {
 });
 
 app.get('/singles', async (req, res) => {
-    const cards = await Card.find({});
+    const cards = await Card.find({ quantity: { $gt: 0 } });
     res.render('singles/index', { cards, title: 'Shop Singles' });
 });
 
 app.get('/singles/:id', async (req, res) => {
-    const card = await Card.findById(req.params.id);
-    console.log(card.images);
-    res.render('singles/show', { card, title: card.name });
+    const result = await Card.find({ id: req.params.id });
+    res.render('singles/show', { card: result[0], title: result[0].name });
 });
 
 app.get('/sell', (req, res) => {
     res.render('sell/sell', { title: 'Sell Singles' });
 });
 
+app.get('/sell/card/:id', async (req, res) => {
+    const result = await Card.find({ id: req.params.id });
+    res.render('sell/card', { card: result[0], title: result[0].name });
+});
+
+app.post('/sell/:id', async (req, res) => {
+    let result = await Card.find({ id: req.params.id });
+    result[0].quantity += 1;
+    await result[0].save();
+    res.redirect('/singles/' + result[0].id);
+});
+
 // search for cards to sell
-app.post('/sell/search', async (req, res) => {
+app.get('/sell/search', async (req, res) => {
     // get search results
 
     const result = await axios.get('https://api.scryfall.com/cards/search', {
-        params: { q: parseName(req.body.name) }
+        params: { q: parseName(req.query.name) }
     });
 
     for (let i = 0; i < result.data.data.length; i++) {
-        console.log('CARD STARTS HERE ------------------');
-        console.log(result.data.data[i]);
+        // console.log('CARD STARTS HERE ------------------');
+        // console.log(result.data.data[i]);
         downloadCard(result.data.data[i]);
     }
 
-    res.redirect('/singles');
+    res.render('sell/search-results', {
+        title: 'Search Results',
+        cards: result.data.data,
+        query: req.query.name
+    });
 });
+
+// app.post('/sell/search', async (req, res) => {
+//     // get search results
+
+//     const result = await axios.get('https://api.scryfall.com/cards/search', {
+//         params: { q: parseName(req.body.name) }
+//     });
+
+//     for (let i = 0; i < result.data.data.length; i++) {
+//         // console.log('CARD STARTS HERE ------------------');
+//         // console.log(result.data.data[i]);
+//         downloadCard(result.data.data[i]);
+//     }
+
+//     res.redirect('/singles');
+// });
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
