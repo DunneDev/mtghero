@@ -1,10 +1,10 @@
 <% layout('layouts/boilerplate') %>
 
 <main>
-    <h1>Search results for <%= query %></h1>
-    <ul>
-        <% for (let card of cards){ %>
-        <li><a href="/sell/card/<%= card.id %>"><%= card.name %></a></li>
-        <% } %>
-    </ul>
+  <h1>Search results for <%= query %></h1>
+  <ul>
+    <% for (let card of cards){ %>
+    <li><a href="/sell/card/<%= card.id %>"><%= card.name %></a></li>
+    <% } %>
+  </ul>
 </main>
