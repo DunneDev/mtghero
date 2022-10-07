@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const axios = require('axios');
+const session = require('express-session');
 const Card = require('./models/card');
 
 mongoose.connect('mongodb://localhost:27017/mtghero', {
@@ -24,6 +25,7 @@ app.set('path', path.join(__dirname, 'views'));
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'teferi' }));
 
 app.get('/', (req, res) => {
     res.render('home', { title: 'Home' });
@@ -48,11 +50,23 @@ app.get('/sell/card/:id', async (req, res) => {
     res.render('sell/card', { card: result[0], title: result[0].name });
 });
 
-app.post('/sell/:id', async (req, res) => {
-    let result = await Card.find({ id: req.params.id });
-    result[0].quantity += 1;
-    await result[0].save();
-    res.redirect('/singles/' + result[0].id);
+app.post('/sell/card/:id', (req, res) => {
+    const cardId = req.params.id;
+    if (!req.session.cart) {
+        req.session.cart = [req.params.id];
+    } else {
+        req.session.cart.push(req.params.id);
+    }
+    res.redirect('/sell');
+});
+
+app.post('/sell', async (req, res) => {
+    for (const id of req.session.cart) {
+        const result = await Card.find({ id });
+        result[0].quantity += 1;
+        await result[0].save();
+    }
+    res.redirect('/singles');
 });
 
 // search for cards to sell
@@ -73,6 +87,20 @@ app.get('/sell/search', async (req, res) => {
         title: 'Search Results',
         cards: result.data.data,
         query: req.query.name
+    });
+});
+
+app.get('/cart', async (req, res) => {
+    cart = [];
+    if (req.session.cart) {
+        for (id of req.session.cart) {
+            const result = await Card.find({ id });
+            cart.push(result[0]);
+        }
+    }
+    res.render('cart', {
+        cart,
+        title: 'cart'
     });
 });
 

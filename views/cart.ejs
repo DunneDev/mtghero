@@ -1,0 +1,14 @@
+<% layout('layouts/boilerplate') %>
+
+<main>
+  <h1>Cart</h1>
+  <<ul>
+    <% for (card of cart){ %>
+    <li><%= card.name %> </li>
+    <% } %>
+    </ul>
+
+    <form action="/sell" method="POST">
+      <button>Checkout</button>
+    </form>
+</main>
