@@ -37,8 +37,8 @@ app.get('/singles', async (req, res) => {
 });
 
 app.get('/singles/:id', async (req, res) => {
-    const result = await Card.find({ id: req.params.id });
-    res.render('singles/show', { card: result[0], title: result[0].name });
+    const card = await Card.findOne({ id: req.params.id });
+    res.render('singles/show', { card, title: card.name });
 });
 
 app.get('/sell', (req, res) => {
