@@ -6,45 +6,49 @@ const axios = require('axios');
 const session = require('express-session');
 const Card = require('./models/card');
 
+// Setup Database
 mongoose.connect('mongodb://localhost:27017/mtghero', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     console.log('Database Connected');
 });
 
+// Server Setup
 const app = express();
-
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('path', path.join(__dirname, 'views'));
-
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'teferi' }));
 
+// Start of Routes
 app.get('/', (req, res) => {
     res.render('home', { title: 'Home' });
 });
 
+// All singles for sale
 app.get('/singles', async (req, res) => {
     const cards = await Card.find({ quantity: { $gt: 0 } });
     res.render('singles/index', { cards, title: 'Shop Singles' });
 });
 
+// Specific card for sale
 app.get('/singles/:id', async (req, res) => {
     const card = await Card.findOne({ id: req.params.id });
     res.render('singles/show', { card, title: card.name });
 });
 
+// Search page for card to sell
 app.get('/sell', (req, res) => {
     res.render('sell/sell', { title: 'Sell Singles' });
 });
 
+// Handle Selling of cards
 app.post('/sell', async (req, res) => {
     for (const id of req.session.buyList) {
         const card = await Card.findOne({ id });
@@ -55,11 +59,13 @@ app.post('/sell', async (req, res) => {
     res.redirect('/singles');
 });
 
+// page to add card to buylist
 app.get('/sell/card/:id', async (req, res) => {
     const card = await Card.findOne({ id: req.params.id });
     res.render('sell/card', { card, title: card.name });
 });
 
+// add card to buylist
 app.post('/sell/card/:id', (req, res) => {
     const cardId = req.params.id;
     if (!req.session.buyList) {
@@ -72,7 +78,6 @@ app.post('/sell/card/:id', (req, res) => {
 
 // search for cards to sell
 app.get('/sell/search', async (req, res) => {
-    // get search results
     try {
         const result = await axios.get(
             'https://api.scryfall.com/cards/search',
@@ -94,6 +99,7 @@ app.get('/sell/search', async (req, res) => {
     }
 });
 
+// Page for cart
 app.get('/cart', async (req, res) => {
     cart = [];
     if (req.session.buyList) {
@@ -108,29 +114,10 @@ app.get('/cart', async (req, res) => {
     });
 });
 
-// app.post('/sell/search', async (req, res) => {
-//     // get search results
-
-//     const result = await axios.get('https://api.scryfall.com/cards/search', {
-//         params: { q: parseName(req.body.name) }
-//     });
-
-//     for (let i = 0; i < result.data.data.length; i++) {
-//         // console.log('CARD STARTS HERE ------------------');
-//         // console.log(result.data.data[i]);
-//         downloadCard(result.data.data[i]);
-//     }
-
-//     res.redirect('/singles');
-// });
-
+// Start Server
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
-
-// function parseName(name) {
-//     return name.replace(/  +/g, '+');
-// }
 
 // downloads card if not already downloaded
 async function downloadCard(apiCard) {
@@ -154,12 +141,3 @@ async function downloadCard(apiCard) {
         console.log('saved ' + apiCard.name);
     }
 }
-
-// async function downloadCard(apiCard) {
-//     const card = await Card.findOne({ id: apiCard.id });
-//     if (card) {
-//         console.log(`${apiCard.name} is already in db as ${card.name}`);
-//     } else {
-//         console.log(`${apiCard.name} does not exist`);
-//     }
-// }
