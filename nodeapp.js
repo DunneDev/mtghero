@@ -47,17 +47,17 @@ app.get('/sell', (req, res) => {
 
 app.post('/sell', async (req, res) => {
     for (const id of req.session.buyList) {
-        const result = await Card.find({ id });
-        result[0].quantity += 1;
-        await result[0].save();
+        const card = await Card.findOne({ id });
+        card.quantity += 1;
+        await card.save();
     }
     req.session.buyList = [];
     res.redirect('/singles');
 });
 
 app.get('/sell/card/:id', async (req, res) => {
-    const result = await Card.find({ id: req.params.id });
-    res.render('sell/card', { card: result[0], title: result[0].name });
+    const card = await Card.findOne({ id: req.params.id });
+    res.render('sell/card', { card, title: card.name });
 });
 
 app.post('/sell/card/:id', (req, res) => {
@@ -95,8 +95,8 @@ app.get('/cart', async (req, res) => {
     cart = [];
     if (req.session.buyList) {
         for (id of req.session.buyList) {
-            const result = await Card.find({ id });
-            cart.push(result[0]);
+            const card = await Card.findOne({ id });
+            cart.push(card);
         }
     }
     res.render('cart', {
@@ -130,24 +130,33 @@ function parseName(name) {
 }
 
 // downloads card if not already downloaded
-async function downloadCard(card) {
-    const result = await Card.find({ id: card.id });
-    if (result.length === 0) {
+async function downloadCard(apiCard) {
+    const card = await Card.findOne({ id: apiCard.id });
+    if (!card) {
         let cardImg;
-        if (card.card_faces) {
-            cardImg = card.card_faces[0].image_uris;
+        if (apiCard.card_faces) {
+            cardImg = apiCard.card_faces[0].image_uris;
         } else {
-            cardImg = card.image_uris;
+            cardImg = apiCard.image_uris;
         }
         const newCard = new Card({
-            id: card.id,
-            name: card.name,
-            price: card.prices.usd,
+            id: apiCard.id,
+            name: apiCard.name,
+            price: apiCard.prices.usd,
             images: cardImg,
             quantity: 0
         });
 
         await newCard.save();
-        console.log('saved ' + card.name);
+        console.log('saved ' + apiCard.name);
     }
 }
+
+// async function downloadCard(apiCard) {
+//     const card = await Card.findOne({ id: apiCard.id });
+//     if (card) {
+//         console.log(`${apiCard.name} is already in db as ${card.name}`);
+//     } else {
+//         console.log(`${apiCard.name} does not exist`);
+//     }
+// }
