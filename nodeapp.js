@@ -73,22 +73,25 @@ app.post('/sell/card/:id', (req, res) => {
 // search for cards to sell
 app.get('/sell/search', async (req, res) => {
     // get search results
+    try {
+        const result = await axios.get(
+            'https://api.scryfall.com/cards/search',
+            {
+                params: { q: req.query.name }
+            }
+        );
 
-    const result = await axios.get('https://api.scryfall.com/cards/search', {
-        params: { q: parseName(req.query.name) }
-    });
-
-    for (let i = 0; i < result.data.data.length; i++) {
-        // console.log('CARD STARTS HERE ------------------');
-        // console.log(result.data.data[i]);
-        downloadCard(result.data.data[i]);
+        for (let i = 0; i < result.data.data.length; i++) {
+            downloadCard(result.data.data[i]);
+        }
+        res.render('sell/search-results', {
+            title: 'Search Results',
+            cards: result.data.data,
+            query: req.query.name
+        });
+    } catch (e) {
+        res.send('INVALID SEARCH, PLEASE ADD A REAL PAGE HERE SEB');
     }
-
-    res.render('sell/search-results', {
-        title: 'Search Results',
-        cards: result.data.data,
-        query: req.query.name
-    });
 });
 
 app.get('/cart', async (req, res) => {
@@ -125,9 +128,9 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-function parseName(name) {
-    return name.replace(/  +/g, '+');
-}
+// function parseName(name) {
+//     return name.replace(/  +/g, '+');
+// }
 
 // downloads card if not already downloaded
 async function downloadCard(apiCard) {
