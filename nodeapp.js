@@ -45,6 +45,16 @@ app.get('/sell', (req, res) => {
     res.render('sell/sell', { title: 'Sell Singles' });
 });
 
+app.post('/sell', async (req, res) => {
+    for (const id of req.session.buyList) {
+        const result = await Card.find({ id });
+        result[0].quantity += 1;
+        await result[0].save();
+    }
+    req.session.buyList = [];
+    res.redirect('/singles');
+});
+
 app.get('/sell/card/:id', async (req, res) => {
     const result = await Card.find({ id: req.params.id });
     res.render('sell/card', { card: result[0], title: result[0].name });
@@ -52,21 +62,12 @@ app.get('/sell/card/:id', async (req, res) => {
 
 app.post('/sell/card/:id', (req, res) => {
     const cardId = req.params.id;
-    if (!req.session.cart) {
-        req.session.cart = [req.params.id];
+    if (!req.session.buyList) {
+        req.session.buyList = [req.params.id];
     } else {
-        req.session.cart.push(req.params.id);
+        req.session.buyList.push(req.params.id);
     }
     res.redirect('/sell');
-});
-
-app.post('/sell', async (req, res) => {
-    for (const id of req.session.cart) {
-        const result = await Card.find({ id });
-        result[0].quantity += 1;
-        await result[0].save();
-    }
-    res.redirect('/singles');
 });
 
 // search for cards to sell
@@ -92,8 +93,8 @@ app.get('/sell/search', async (req, res) => {
 
 app.get('/cart', async (req, res) => {
     cart = [];
-    if (req.session.cart) {
-        for (id of req.session.cart) {
+    if (req.session.buyList) {
+        for (id of req.session.buyList) {
             const result = await Card.find({ id });
             cart.push(result[0]);
         }

@@ -2,6 +2,6 @@
 <h1>Cards</h1>
 <ul>
   <% for (let card of cards){ %>
-  <li><a href="/singles/<%= card.id %>"><%= card.name %></a></li>
+  <li><a href="/singles/<%= card.id %>"><%= card.name %></a>: <%= card.quantity %> in stock</li>
   <% } %>
 </ul>
