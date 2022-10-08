@@ -50,12 +50,12 @@ app.get('/sell', (req, res) => {
 
 // Handle Selling of cards
 app.post('/sell', async (req, res) => {
-    for (const id of req.session.buyList) {
+    for (const id in req.session.buyList) {
         const card = await Card.findOne({ id });
-        card.quantity += 1;
+        card.quantity += req.session.buyList[id];
         await card.save();
     }
-    req.session.buyList = [];
+    req.session.buyList = {};
     res.redirect('/singles');
 });
 
@@ -67,11 +67,11 @@ app.get('/sell/card/:id', async (req, res) => {
 
 // add card to buylist
 app.post('/sell/card/:id', (req, res) => {
-    const cardId = req.params.id;
     if (!req.session.buyList) {
-        req.session.buyList = [req.params.id];
+        req.session.buyList = {};
+        req.session.buyList[req.params.id] = Number(req.body.quantity);
     } else {
-        req.session.buyList.push(req.params.id);
+        req.session.buyList[req.params.id] += Number(req.body.quantity);
     }
     res.redirect('/sell');
 });
@@ -103,8 +103,9 @@ app.get('/sell/search', async (req, res) => {
 app.get('/cart', async (req, res) => {
     cart = [];
     if (req.session.buyList) {
-        for (id of req.session.buyList) {
+        for (id in req.session.buyList) {
             const card = await Card.findOne({ id });
+            card.quantity = req.session.buyList[id];
             cart.push(card);
         }
     }

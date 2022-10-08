@@ -5,5 +5,7 @@
   <img src="<%= card.images.small %>" alt="<%= card.name %>" />
 </div>
 <form action="/sell/card/<%= card.id %>" method="POST">
+  <label for="quantity"></label>
+  <input type="number" name="quantity" id="quantity">
   <button>Sell</button>
 </form>
