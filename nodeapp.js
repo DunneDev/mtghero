@@ -109,6 +109,7 @@ app.post('/sell/card/:id', (req, res) => {
 // search for cards to sell
 app.get('/sell/search', async (req, res) => {
     try {
+        // search api for card
         const result = await axios.get(
             'https://api.scryfall.com/cards/search',
             {
@@ -116,14 +117,25 @@ app.get('/sell/search', async (req, res) => {
             }
         );
 
+        // Remove cards that do not have a price (alchemy)
+        for (let i = 0; i < result.data.data.length; i++) {
+            if (!result.data.data[i].prices.usd) {
+                console.log('REMOVED ' + result.data.data[i].name);
+                result.data.data.splice(i, 1);
+            }
+        }
+
+        // download all cards to db if no already in
         for (let i = 0; i < result.data.data.length; i++) {
             downloadCard(result.data.data[i]);
         }
+
+        // render search results
         res.render('sell/search-results', {
             title: 'Search Results',
             cards: result.data.data,
             query: req.query.name,
-            css: []
+            css: ['gallery.css']
         });
     } catch (e) {
         res.send('INVALID SEARCH, PLEASE ADD A REAL PAGE HERE SEB');
