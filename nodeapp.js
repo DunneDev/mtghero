@@ -27,29 +27,56 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'teferi' }));
 
 // Start of Routes
+
+// Landing Page
 app.get('/', (req, res) => {
-    res.render('home', { title: 'Home' });
+    res.redirect('singles');
+    // ADD REAL LANGING PAGE PLEASE
+    // res.render('home', { title: 'Home' });
 });
 
 // All singles for sale
 app.get('/singles', async (req, res) => {
     const cards = await Card.find({ quantity: { $gt: 0 } });
-    res.render('singles/index', { cards, title: 'Shop Singles' });
+    res.render('singles/index', {
+        cards,
+        title: 'Shop Singles',
+        css: ['gallery.css']
+    });
 });
 
 // Specific card for sale
 app.get('/singles/:id', async (req, res) => {
     const card = await Card.findOne({ id: req.params.id });
-    res.render('singles/show', { card, title: card.name });
+    res.render('singles/show', { card, title: card.name, css: [] });
+});
+
+app.post('/singles/:id', async (req, res) => {
+    if (!req.session.cart) {
+        req.session.cart = {};
+    }
+
+    if (!req.session.cart[req.params.id]) {
+        req.session.cart[req.params.id] = 0;
+    }
+
+    req.session.cart[req.params.id] += Number(req.body.quantity);
+    res.redirect('/singles');
 });
 
 // Search page for card to sell
 app.get('/sell', (req, res) => {
-    res.render('sell/sell', { title: 'Sell Singles' });
+    res.render('sell/sell', { title: 'Sell Singles', css: [] });
 });
 
 // Handle Selling of cards
-app.post('/sell', async (req, res) => {
+app.post('/checkout', async (req, res) => {
+    for (const id in req.session.cart) {
+        const card = await Card.findOne({ id });
+        card.quantity -= req.session.cart[id];
+        await card.save();
+    }
+    req.session.cart = {};
     for (const id in req.session.buyList) {
         const card = await Card.findOne({ id });
         card.quantity += req.session.buyList[id];
@@ -62,17 +89,20 @@ app.post('/sell', async (req, res) => {
 // page to add card to buylist
 app.get('/sell/card/:id', async (req, res) => {
     const card = await Card.findOne({ id: req.params.id });
-    res.render('sell/card', { card, title: card.name });
+    res.render('sell/card', { card, title: card.name, css: [] });
 });
 
 // add card to buylist
 app.post('/sell/card/:id', (req, res) => {
     if (!req.session.buyList) {
         req.session.buyList = {};
-        req.session.buyList[req.params.id] = Number(req.body.quantity);
-    } else {
-        req.session.buyList[req.params.id] += Number(req.body.quantity);
+        //req.session.buyList[req.params.id] = Number(req.body.quantity);
     }
+
+    if (!req.session.buyList[req.params.id]) {
+        req.session.buyList[req.params.id] = 0;
+    }
+    req.session.buyList[req.params.id] += Number(req.body.quantity);
     res.redirect('/sell');
 });
 
@@ -92,7 +122,8 @@ app.get('/sell/search', async (req, res) => {
         res.render('sell/search-results', {
             title: 'Search Results',
             cards: result.data.data,
-            query: req.query.name
+            query: req.query.name,
+            css: []
         });
     } catch (e) {
         res.send('INVALID SEARCH, PLEASE ADD A REAL PAGE HERE SEB');
@@ -102,16 +133,26 @@ app.get('/sell/search', async (req, res) => {
 // Page for cart
 app.get('/cart', async (req, res) => {
     cart = [];
+    if (req.session.cart) {
+        for (id in req.session.cart) {
+            const card = await Card.findOne({ id });
+            card.quantity = req.session.cart[id];
+            cart.push(card);
+        }
+    }
+    buyList = [];
     if (req.session.buyList) {
         for (id in req.session.buyList) {
             const card = await Card.findOne({ id });
             card.quantity = req.session.buyList[id];
-            cart.push(card);
+            buyList.push(card);
         }
     }
     res.render('cart', {
         cart,
-        title: 'cart'
+        buyList,
+        title: 'cart',
+        css: []
     });
 });
 

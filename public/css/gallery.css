@@ -1,0 +1,27 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 170px);
+    justify-content: space-between;
+    grid-gap: 10px;
+}
+
+.grid-container a {
+    text-decoration: none;
+    color: black;
+}
+
+.card-container {
+    width: 170px;
+    padding: 7px;
+    border: solid black 2px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.card-container p {
+    margin: 6px 0 0;
+}
+
+.card-container img {
+    width: 175;
+}

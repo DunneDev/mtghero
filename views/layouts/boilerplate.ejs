@@ -4,9 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= title %></title>
+  <title>
+    <%= title %>
+  </title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik" />
   <link rel="stylesheet" href="/css/main.css" />
+  <% for (sheet of css){ %>
+  <link rel="stylesheet" href="/css/<%= sheet %>">
+  <% } %>
   <script src="https://kit.fontawesome.com/0f2b0bea05.js" crossorigin="anonymous"></script>
 </head>
 

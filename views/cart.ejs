@@ -7,8 +7,14 @@
     <li><%= card.name %>: x<%= card.quantity %></li>
     <% } %>
   </ul>
+  <h1>Buy List</h1>
+  <ul>
+    <% for (card of buyList){ %>
+    <li><%= card.name %>: x<%= card.quantity %></li>
+    <% } %>
+  </ul>
 
-  <form action="/sell" method="POST">
+  <form action="/checkout" method="POST">
     <button>Checkout</button>
   </form>
 </main>
