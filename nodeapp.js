@@ -51,6 +51,7 @@ app.get('/singles/:id', async (req, res) => {
     res.render('singles/show', { card, title: card.name, css: [] });
 });
 
+// add card to cart
 app.post('/singles/:id', async (req, res) => {
     if (!req.session.cart) {
         req.session.cart = {};
@@ -96,7 +97,6 @@ app.get('/sell/card/:id', async (req, res) => {
 app.post('/sell/card/:id', (req, res) => {
     if (!req.session.buyList) {
         req.session.buyList = {};
-        //req.session.buyList[req.params.id] = Number(req.body.quantity);
     }
 
     if (!req.session.buyList[req.params.id]) {
