@@ -133,6 +133,12 @@ main {
     animation-duration: 1.5s;
 }
 
+/* end carousel */
+
+td {
+    text-align: center;
+}
+
 @keyframes fade {
     from {
         opacity: 0.4;

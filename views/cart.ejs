@@ -1,12 +1,35 @@
 <% layout('layouts/boilerplate') %>
 
 <main>
+  <% if (cart.length > 0) {%>
   <h1>Cart</h1>
-  <ul>
-    <% for (card of cart){ %>
-    <li><%= card.name %>: x<%= card.quantity %></li>
-    <% } %>
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <td>Item</td>
+        <td>Name</td>
+        <td>Quantity</td>
+        <td>Price</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (card of cart){ %>
+      <tr>
+        <td><img src="<%= card.images.small %>" alt="<%= card.name %>" /></td>
+        <td>
+          <p><%= card.name %></p>
+        </td>
+        <td>
+          <p><%= card.quantity %></p>
+        </td>
+        <td>
+          <p><%= card.price %></p>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <%} %>
   <h1>Buy List</h1>
   <ul>
     <% for (card of buyList){ %>
