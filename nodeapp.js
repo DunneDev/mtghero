@@ -120,15 +120,23 @@ app.get('/sell/search', async (req, res) => {
         // Remove cards that do not have a price (alchemy)
         for (let i = 0; i < result.data.data.length; i++) {
             if (!result.data.data[i].prices.usd) {
-                console.log('REMOVED ' + result.data.data[i].name);
                 result.data.data.splice(i, 1);
             }
         }
 
-        // download all cards to db if no already in
+        // process each valid card
         for (let i = 0; i < result.data.data.length; i++) {
-            downloadCard(result.data.data[i]);
+            result.data.data[i].cardImg = await downloadCard(
+                result.data.data[i]
+            );
         }
+
+        // let cardImg;
+        // if (apiCard.card_faces) {
+        //     cardImg = apiCard.card_faces[0].image_uris;
+        // } else {
+        //     cardImg = apiCard.image_uris;
+        // }
 
         // render search results
         res.render('sell/search-results', {
@@ -175,7 +183,7 @@ app.listen(3000, () => {
 
 // downloads card if not already downloaded
 async function downloadCard(apiCard) {
-    const card = await Card.findOne({ id: apiCard.id });
+    let card = await Card.findOne({ id: apiCard.id });
     if (!card) {
         let cardImg;
         if (apiCard.card_faces) {
@@ -183,7 +191,7 @@ async function downloadCard(apiCard) {
         } else {
             cardImg = apiCard.image_uris;
         }
-        const newCard = new Card({
+        card = new Card({
             id: apiCard.id,
             name: apiCard.name,
             price: apiCard.prices.usd,
@@ -191,7 +199,9 @@ async function downloadCard(apiCard) {
             quantity: 0
         });
 
-        await newCard.save();
-        console.log('saved ' + apiCard.name);
+        await card.save();
+        console.log('saved ' + card.name);
     }
+
+    return card.images;
 }

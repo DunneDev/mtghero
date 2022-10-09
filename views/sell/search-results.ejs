@@ -2,9 +2,14 @@
 
 <main>
   <h1>Search results for <%= query %></h1>
-  <ul>
+  <div class="grid-container">
     <% for (let card of cards){ %>
-    <li><a href="/sell/card/<%= card.id %>"><%= card.name %></a></li>
+    <a href="/sell/card/<%= card.id %>">
+      <div class="card-container">
+        <img src="<%= card.cardImg.small %> " alt="<%= card.name %>" />
+        <p>$<%= card.prices.usd %></p>
+      </div>
+    </a>
     <% } %>
-  </ul>
+  </div>
 </main>
