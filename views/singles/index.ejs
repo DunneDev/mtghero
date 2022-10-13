@@ -21,9 +21,10 @@
     <option value="100" <% if (limit === 100){ %>selected="selcted" <% } %>>100</option>
   </select>
 </form>
-<button id="prev-button" <% if (page == 1){ %>hidden<% } %>>Prev</button>
-<button id="next-button" <% if (page >= pageMax){ %>hidden<% } %>>Next</button>
-<p>Page <%= page %> of <%= pageMax %></p>
+<p>Page <%= page %> of <%= pageMax %>
+  <button id="prev-button" <% if (page == 1){ %>hidden<% } %>>Prev</button>
+  <button id="next-button" <% if (page >= pageMax){ %>hidden<% } %>>Next</button>
+</p>
 <div class="grid-container">
   <% for (let card of cards){ %>
   <a href="/singles/<%= card.id %>">

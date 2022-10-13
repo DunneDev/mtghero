@@ -26,7 +26,7 @@ document.getElementById('search-form').addEventListener('submit', (e) => {
     if (append) {
         append = '?' + append;
     }
-    window.location.replace(window.location.origin + '/singles' + append);
+    window.location.href = window.location.origin + '/singles' + append;
     select;
 });
 
@@ -56,7 +56,7 @@ select.addEventListener('change', () => {
     if (append) {
         append = '?' + append;
     }
-    window.location.replace(window.location.origin + '/singles' + append);
+    window.location.href = window.location.origin + '/singles' + append;
 });
 
 document.getElementById('next-button').addEventListener('click', () => {
@@ -79,7 +79,7 @@ document.getElementById('next-button').addEventListener('click', () => {
     if (append) {
         append = '?' + append;
     }
-    window.location.replace(window.location.origin + '/singles' + append);
+    window.location.href = window.location.origin + '/singles' + append;
 });
 
 document.getElementById('prev-button').addEventListener('click', () => {
@@ -105,7 +105,7 @@ document.getElementById('prev-button').addEventListener('click', () => {
     if (append) {
         append = '?' + append;
     }
-    window.location.replace(window.location.origin + '/singles' + append);
+    window.location.href = window.location.origin + '/singles' + append;
 });
 
 function prevPage() {
@@ -131,5 +131,5 @@ function prevPage() {
     if (append) {
         append = '?' + append;
     }
-    window.location.replace(window.location.origin + '/singles' + append);
+    window.location.href = window.location.origin + '/singles' + append;
 }

@@ -72,23 +72,28 @@ app.get('/singles', async (req, res) => {
         page = pageMax;
     }
 
-    //Get cards from db
-    const cards = await Card.find({
-        quantity: { $gt: 0 },
-        name: new RegExp(search, 'i')
-    })
-        .skip((page - 1) * limit)
-        .limit(limit);
+    //handle invalid search
+    if (pageMax === 0) {
+        res.send('INVALID SEARCH, PLEASE ADD A REAL PAGE HERE SEB');
+    } else {
+        //Get cards from db
+        const cards = await Card.find({
+            quantity: { $gt: 0 },
+            name: new RegExp(search, 'i')
+        })
+            .skip((page - 1) * limit)
+            .limit(limit);
 
-    res.render('singles/index', {
-        cards,
-        title: 'Shop Singles',
-        css: ['gallery.css'],
-        page,
-        limit,
-        search,
-        pageMax
-    });
+        res.render('singles/index', {
+            cards,
+            title: 'Shop Singles',
+            css: ['gallery.css'],
+            page,
+            limit,
+            search,
+            pageMax
+        });
+    }
 });
 
 // Specific card for sale
