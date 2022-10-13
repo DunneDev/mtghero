@@ -1,13 +1,32 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 170px);
-    justify-content: space-between;
+    justify-content: space-around;
     grid-gap: 10px;
 }
 
 .grid-container a {
     text-decoration: none;
     color: black;
+}
+
+#search-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#search-form {
+    align-self: center;
+}
+
+#page-options {
+    display: flex;
+    align-items: flex-end;
+}
+
+#page-options > * {
+    margin: 0 0.3em 0.5em;
 }
 
 .card-container {

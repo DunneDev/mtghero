@@ -33,7 +33,7 @@ app.use(session({ secret: 'teferi' }));
 app.get('/', (req, res) => {
     res.redirect('singles');
     // ADD REAL LANGING PAGE PLEASE
-    // res.render('home', { title: 'Home' });
+    //res.render('home', { title: 'Home', css: [] });
 });
 
 // All singles for sale
