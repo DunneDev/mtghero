@@ -32,12 +32,10 @@ document.getElementById('search-form').addEventListener('submit', (e) => {
 
 select.addEventListener('change', () => {
     let append = '';
-    console.log('append: ' + append);
 
     if (page > 1) {
         append += 'p=' + page;
     }
-    console.log('append: ' + append);
 
     let newLimit = select.value;
 
@@ -47,7 +45,6 @@ select.addEventListener('change', () => {
         }
         append += 'l=' + newLimit;
     }
-    console.log('append: ' + append);
 
     if (search) {
         if (append) {

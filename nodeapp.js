@@ -42,14 +42,14 @@ app.get('/singles', async (req, res) => {
     if (!req.query.l) {
         limit = 30;
     } else {
-        limit = req.query.l;
+        limit = Number(req.query.l);
     }
 
     let page;
     if (!req.query.p) {
         page = 1;
     } else {
-        page = req.query.p;
+        page = Number(req.query.p);
     }
 
     let search;
@@ -57,6 +57,19 @@ app.get('/singles', async (req, res) => {
         search = '';
     } else {
         search = req.query.q;
+    }
+
+    //Calculate the maximum pages
+    const pageMax = Math.ceil(
+        (await Card.find({
+            quantity: { $gt: 0 },
+            name: new RegExp(search, 'i')
+        }).count()) / limit
+    );
+
+    //handle too big of page count
+    if (page > pageMax) {
+        page = pageMax;
     }
 
     //Get cards from db
@@ -67,20 +80,12 @@ app.get('/singles', async (req, res) => {
         .skip((page - 1) * limit)
         .limit(limit);
 
-    //Calculate the maximum pages
-    const pageMax = Math.ceil(
-        (await Card.find({
-            quantity: { $gt: 0 },
-            name: new RegExp(search, 'i')
-        }).count()) / limit
-    );
-
     res.render('singles/index', {
         cards,
         title: 'Shop Singles',
         css: ['gallery.css'],
-        page: Number(page),
-        limit: Number(limit),
+        page,
+        limit,
         search,
         pageMax
     });
