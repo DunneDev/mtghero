@@ -76,6 +76,10 @@ main {
     padding: 0px 20px;
 }
 
+h1 {
+    text-align: center;
+}
+
 /* Carousel inspired by https://www.w3schools.com/howto/howto_js_slideshow.asp */
 .carousel {
     max-width: 500px;

@@ -19,8 +19,8 @@ const seedDB = async () => {
     const entries = 200,
         min = 3,
         max = 20,
-        len = cards.length,
-        ids = {};
+        len = cards.length;
+    let ids = {};
     for (let i = 0; i < entries; i++) {
         let card;
         do {
