@@ -169,17 +169,17 @@ app.get('/sell/search', async (req, res) => {
         );
 
         // Remove cards that do not have a price (alchemy)
-        let flag;
+        let invalidCard;
         do {
-            flag = false;
+            invalidCard = false;
             for (let i = 0; i < result.data.data.length; i++) {
                 if (!result.data.data[i].prices.usd) {
                     result.data.data.splice(i, 1);
-                    flag = true;
+                    invalidCard = true;
                     break;
                 }
             }
-        } while (flag);
+        } while (invalidCard);
 
         // process each valid card
         for (let i = 0; i < result.data.data.length; i++) {
