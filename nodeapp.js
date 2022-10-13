@@ -37,11 +37,52 @@ app.get('/', (req, res) => {
 
 // All singles for sale
 app.get('/singles', async (req, res) => {
-    const cards = await Card.find({ quantity: { $gt: 0 } });
+    // Set defaults if not in query
+    let limit;
+    if (!req.query.l) {
+        limit = 30;
+    } else {
+        limit = req.query.l;
+    }
+
+    let page;
+    if (!req.query.p) {
+        page = 1;
+    } else {
+        page = req.query.p;
+    }
+
+    let search;
+    if (!req.query.q) {
+        search = '';
+    } else {
+        search = req.query.q;
+    }
+
+    //Get cards from db
+    const cards = await Card.find({
+        quantity: { $gt: 0 },
+        name: new RegExp(search, 'i')
+    })
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+    //Calculate the maximum pages
+    const pageMax = Math.ceil(
+        (await Card.find({
+            quantity: { $gt: 0 },
+            name: new RegExp(search, 'i')
+        }).count()) / limit
+    );
+
     res.render('singles/index', {
         cards,
         title: 'Shop Singles',
-        css: ['gallery.css']
+        css: ['gallery.css'],
+        page: Number(page),
+        limit: Number(limit),
+        search,
+        pageMax
     });
 });
 
@@ -118,11 +159,17 @@ app.get('/sell/search', async (req, res) => {
         );
 
         // Remove cards that do not have a price (alchemy)
-        for (let i = 0; i < result.data.data.length; i++) {
-            if (!result.data.data[i].prices.usd) {
-                result.data.data.splice(i, 1);
+        let flag;
+        do {
+            flag = false;
+            for (let i = 0; i < result.data.data.length; i++) {
+                if (!result.data.data[i].prices.usd) {
+                    result.data.data.splice(i, 1);
+                    flag = true;
+                    break;
+                }
             }
-        }
+        } while (flag);
 
         // process each valid card
         for (let i = 0; i < result.data.data.length; i++) {
@@ -130,13 +177,6 @@ app.get('/sell/search', async (req, res) => {
                 result.data.data[i]
             );
         }
-
-        // let cardImg;
-        // if (apiCard.card_faces) {
-        //     cardImg = apiCard.card_faces[0].image_uris;
-        // } else {
-        //     cardImg = apiCard.image_uris;
-        // }
 
         // render search results
         res.render('sell/search-results', {
