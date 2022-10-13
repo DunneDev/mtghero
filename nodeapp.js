@@ -6,7 +6,7 @@ const axios = require('axios');
 const session = require('express-session');
 const Card = require('./models/card');
 
-// Setup Database
+// Connect to db
 mongoose.connect('mongodb://localhost:27017/mtghero', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -22,6 +22,7 @@ const app = express();
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('path', path.join(__dirname, 'views'));
+// middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'teferi' }));
