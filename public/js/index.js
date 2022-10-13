@@ -1,16 +1,15 @@
 let select = document.getElementById('limit');
-let form = document.getElementById('search-form');
 let searchInput = document.getElementById('search');
 
-// select.addEventListener('change', function () {
-//     form.submit();
-// });
+const page = Number(document.getElementById('pageVal').innerHTML);
+const limit = Number(document.getElementById('limitVal').innerHTML);
+const search = document.getElementById('searchVal').innerHTML;
 
-form.addEventListener('submit', (e) => {
+document.getElementById('search-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let append = '';
 
-    if (limit != 20) {
+    if (limit != 30) {
         if (append) {
             append += '&';
         }
@@ -28,6 +27,7 @@ form.addEventListener('submit', (e) => {
         append = '?' + append;
     }
     window.location.replace(window.location.origin + '/singles' + append);
+    select;
 });
 
 select.addEventListener('change', () => {
@@ -41,7 +41,7 @@ select.addEventListener('change', () => {
 
     let newLimit = select.value;
 
-    if (newLimit != 20) {
+    if (newLimit != 30) {
         if (append) {
             append += '&';
         }
@@ -62,10 +62,10 @@ select.addEventListener('change', () => {
     window.location.replace(window.location.origin + '/singles' + append);
 });
 
-function nextPage() {
+document.getElementById('next-button').addEventListener('click', () => {
     let append = 'p=' + (page + 1);
 
-    if (limit != 20) {
+    if (limit != 30) {
         if (append) {
             append += '&';
         }
@@ -83,7 +83,33 @@ function nextPage() {
         append = '?' + append;
     }
     window.location.replace(window.location.origin + '/singles' + append);
-}
+});
+
+document.getElementById('prev-button').addEventListener('click', () => {
+    let append = '';
+    if (page > 2) {
+        append = 'p=' + (page - 1);
+    }
+
+    if (limit != 30) {
+        if (append) {
+            append += '&';
+        }
+        append += 'l=' + limit;
+    }
+
+    if (search) {
+        if (append) {
+            append += '&';
+        }
+        append += 'q=' + searchInput.value;
+    }
+
+    if (append) {
+        append = '?' + append;
+    }
+    window.location.replace(window.location.origin + '/singles' + append);
+});
 
 function prevPage() {
     let append = '';
@@ -91,7 +117,7 @@ function prevPage() {
         append = 'p=' + (page - 1);
     }
 
-    if (limit != 20) {
+    if (limit != 30) {
         if (append) {
             append += '&';
         }

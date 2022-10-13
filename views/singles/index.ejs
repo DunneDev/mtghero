@@ -22,10 +22,10 @@
   </select>
 </form>
 <% if (page> 1){ %>
-<button onclick="prevPage()">Prev</button>
+<button id="prev-button">Prev</button>
 <% } %>
 <% if (page < pageMax){ %>
-<button onclick="nextPage()">Next</button>
+<button id="next-button">Next</button>
 <% } %>
 <div class="grid-container">
   <% for (let card of cards){ %>
@@ -42,9 +42,15 @@
   <% } %>
 </div>
 
+<div hidden>
+  <div id="pageVal"><%= page %></div>
+  <div id="limitVal"><%= limit %></div>
+  <div id="searchVal"><%= search %></div>
+</div>
+
 <script>
-  const page = <%= page %>
-  const limit = <%= limit %>
-  const search = "<%= search %>"
+  // const page = <%= page %>
+  // const limit = <%= limit %>
+  // const search = "<%= search %>"
 </script>
 <script src="/js/index.js"></script>
