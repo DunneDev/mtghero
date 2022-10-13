@@ -32,9 +32,10 @@
 .card-container {
     width: 170px;
     padding: 7px;
-    border: solid black 2px;
+    border: solid black 1px;
     text-align: center;
     box-sizing: border-box;
+    border-radius: 1em;
 }
 
 .card-container p {

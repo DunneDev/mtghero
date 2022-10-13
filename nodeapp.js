@@ -31,7 +31,7 @@ app.use(session({ secret: 'teferi' }));
 
 // Landing Page
 app.get('/', (req, res) => {
-    res.redirect('singles');
+    res.redirect('/singles');
     // ADD REAL LANGING PAGE PLEASE
     //res.render('home', { title: 'Home', css: [] });
 });
@@ -100,7 +100,7 @@ app.get('/singles', async (req, res) => {
 // Specific card for sale
 app.get('/singles/:id', async (req, res) => {
     const card = await Card.findOne({ id: req.params.id });
-    res.render('singles/show', { card, title: card.name, css: [] });
+    res.render('singles/show', { card, title: card.name, css: ['show.css'] });
 });
 
 // add card to cart
@@ -119,7 +119,10 @@ app.post('/singles/:id', async (req, res) => {
 
 // Search page for card to sell
 app.get('/sell', (req, res) => {
-    res.render('sell/sell', { title: 'Sell Singles', css: [] });
+    res.render('sell/sell', {
+        title: 'Sell Singles',
+        css: ['sell_search.css']
+    });
 });
 
 // Handle Selling of cards
@@ -251,7 +254,7 @@ async function downloadCard(apiCard) {
         });
 
         await card.save();
-        console.log('saved ' + card.name);
+        console.log(`saved ${card.name}`);
     }
 
     return card.images;
