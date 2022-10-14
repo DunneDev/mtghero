@@ -33,7 +33,7 @@ app.use(session({ secret: 'teferi' }));
 app.get('/', (req, res) => {
     res.redirect('/singles');
     // ADD REAL LANGING PAGE PLEASE
-    //res.render('home', { title: 'Home', css: [] });
+    //res.render('home', { title: 'Home', css: ["landing.css"] });
 });
 
 // All singles for sale
@@ -41,7 +41,7 @@ app.get('/singles', async (req, res) => {
     // Set defaults if not in query
     let limit;
     if (!req.query.l) {
-        limit = 30;
+        limit = 20;
     } else {
         limit = Number(req.query.l);
     }
