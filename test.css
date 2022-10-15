@@ -1,29 +1,29 @@
 body {
     margin: 0;
-    font-family: 'Rubik', sans-serif;
-    --card-bg: #e1e8f7;
-    --card-border: #b0c8fc;
-    --button-primary: #2b56b4;
-    --button-primary-border: #0b2b6e;
+    font-family: Arial;
 }
 
-/* Start of Nav Bar (based on example from https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp) */
-nav {
+.topnav {
     overflow: hidden;
-    background-color: var(--button-primary);
+    background-color: #333;
 }
 
-nav a {
+.topnav a {
     float: left;
     display: block;
-    color: white;
+    color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
 }
 
-nav .icon {
+.active {
+    background-color: #04aa6d;
+    color: white;
+}
+
+.topnav .icon {
     display: none;
 }
 
@@ -32,7 +32,7 @@ nav .icon {
     overflow: hidden;
 }
 
-.dropdown button {
+.dropdown .dropbtn {
     font-size: 17px;
     border: none;
     outline: none;
@@ -46,9 +46,9 @@ nav .icon {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--card-bg);
+    background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -61,14 +61,14 @@ nav .icon {
     text-align: left;
 }
 
-nav a:hover,
+.topnav a:hover,
 .dropdown:hover .dropbtn {
-    background-color: var(--button-primary-border);
+    background-color: #555;
     color: white;
 }
 
 .dropdown-content a:hover {
-    background-color: var(--card-border);
+    background-color: #ddd;
     color: black;
 }
 
@@ -77,61 +77,39 @@ nav a:hover,
 }
 
 @media screen and (max-width: 600px) {
-    nav a:not(:first-child),
+    .topnav a:not(:first-child),
     .dropdown .dropbtn {
         display: none;
     }
-    nav a.icon {
+    .topnav a.icon {
         float: right;
         display: block;
     }
 }
 
 @media screen and (max-width: 600px) {
-    nav.responsive {
+    .topnav.responsive {
         position: relative;
     }
-    nav.responsive .icon {
+    .topnav.responsive .icon {
         position: absolute;
         right: 0;
         top: 0;
     }
-    nav.responsive a {
+    .topnav.responsive a {
         float: none;
         display: block;
         text-align: left;
     }
-    nav.responsive .dropdown {
+    .topnav.responsive .dropdown {
         float: none;
     }
-    nav.responsive .dropdown-content {
+    .topnav.responsive .dropdown-content {
         position: relative;
     }
-    nav.responsive .dropdown .dropbtn {
+    .topnav.responsive .dropdown .dropbtn {
         display: block;
         width: 100%;
         text-align: left;
     }
-}
-/* End of Nav Bar */
-
-main {
-    padding: 0 2rem;
-}
-
-h1 {
-    text-align: center;
-}
-
-main button {
-    background-color: var(--button-primary);
-    border: solid var(--button-primary-border) 1px;
-    border-radius: 0.6rem;
-    color: white;
-    padding: 0.4rem;
-    transition-duration: 0.15s;
-}
-
-button:hover {
-    background-color: var(--button-primary-border);
 }
