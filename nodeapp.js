@@ -31,9 +31,9 @@ app.use(session({ secret: 'teferi' }));
 
 // Landing Page
 app.get('/', (req, res) => {
-    res.redirect('/singles');
+    //res.redirect('/singles');
     // ADD REAL LANGING PAGE PLEASE
-    //res.render('home', { title: 'Home', css: ["landing.css"] });
+    res.render('home', { title: 'Home', css: ['landing.css'] });
 });
 
 // All singles for sale

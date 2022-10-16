@@ -1,25 +1,36 @@
 <% layout('layouts/boilerplate') %>
 
 <main>
-    <section class="carousel">
-        <div class="carousel-container">
-            <div class="carousel-item fade">
-                <p>Test1</p>
-            </div>
-
-            <div class="carousel-item fade">
-                <p>Test2</p>
-            </div>
-
-            <div class="carousel-item fade">
-                <p>Test3</p>
-            </div>
-        </div>
-        <div style="text-align: center">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </section>
-    <script src="/js/home.js"></script>
+  <section id="grid-container">
+    <div id="deals">
+      <div class="content"></div>
+    </div>
+    <div id="promo1">
+      <div class="content"></div>
+    </div>
+    <div id="promo2">
+      <div class="content"></div>
+    </div>
+    <div id="top-sellers">
+      <div class="content"></div>
+    </div>
+  </section>
+  <section>
+    <h1>Shop Catagories</h1>
+    <div id="catagories">
+      <div>
+        <p>Singles</p>
+      </div>
+      <div>
+        <p>Pre-Cons</p>
+      </div>
+      <div>
+        <p>Boosters</p>
+      </div>
+      <div>
+        <p>Accessories</p>
+      </div>
+    </div>
+  </section>
 </main>
+<script src="/js/landing.js"></script>
