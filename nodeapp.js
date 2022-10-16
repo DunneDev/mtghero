@@ -5,6 +5,7 @@ const ejsMate = require('ejs-mate');
 const axios = require('axios');
 const session = require('express-session');
 const Card = require('./models/card');
+const Precon = require('./models/precon');
 
 // Connect to db
 mongoose.connect('mongodb://localhost:27017/mtghero', {
@@ -259,3 +260,15 @@ async function downloadCard(apiCard) {
 
     return card.images;
 }
+
+(async () => {
+    const test = new Precon({
+        name: 'test',
+        price: 420.69,
+        quantity: 30,
+        image: 'BLARGH'
+    });
+
+    await test.save();
+    console.log('saved precon');
+})();
