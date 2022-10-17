@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 1fr;
     justify-content: space-around;
     grid-gap: 10px;
+    margin-bottom: 2rem;
 }
 
 .grid-container a {
@@ -18,6 +19,7 @@
 
 #search-form {
     align-self: center;
+    margin-bottom: 0.5rem;
 }
 
 #page-options {

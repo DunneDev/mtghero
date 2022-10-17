@@ -254,6 +254,16 @@ app.get('/cart', async (req, res) => {
     });
 });
 
+// contact information page
+app.get('/contact', (req, res) => {
+    res.render('contact', { title: 'Contact Us', css: ['contact.css'] });
+});
+
+// Terms and Conditions
+app.get('/terms', (req, res) => {
+    res.render('terms', { title: 'Terms and Conditions', css: [] });
+});
+
 // Start Server
 app.listen(3000, () => {
     console.log('Server started on port 3000');

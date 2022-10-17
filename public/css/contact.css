@@ -1,0 +1,15 @@
+p {
+    text-align: center;
+}
+
+table {
+    margin: auto;
+}
+
+td:first-child {
+    text-align: right;
+}
+
+td {
+    width: 13rem;
+}
