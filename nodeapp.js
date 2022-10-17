@@ -6,6 +6,7 @@ const axios = require('axios');
 const session = require('express-session');
 const Card = require('./models/card');
 const Precon = require('./models/precon');
+const Booster = require('./models/booster');
 
 // Connect to db
 mongoose.connect('mongodb://localhost:27017/mtghero', {
@@ -116,6 +117,28 @@ app.post('/singles/:id', async (req, res) => {
 
     req.session.cart[req.params.id] += Number(req.body.quantity);
     res.redirect('/singles');
+});
+
+// all precons
+app.get('/precons', async (req, res) => {
+    const precons = await Precon.find({ quantity: { $gt: 0 } });
+
+    res.render('precons/precons', {
+        precons,
+        title: 'Shop Precons',
+        css: ['gallery.css']
+    });
+});
+
+// all boosters
+app.get('/boosters', async (req, res) => {
+    const boosters = await Booster.find({ quantity: { $gt: 0 } });
+
+    res.render('boosters/boosters', {
+        boosters,
+        title: 'Shop Boosters',
+        css: ['gallery.css']
+    });
 });
 
 // Search page for card to sell
@@ -261,14 +284,14 @@ async function downloadCard(apiCard) {
     return card.images;
 }
 
-(async () => {
-    const test = new Precon({
-        name: 'test',
-        price: 420.69,
-        quantity: 30,
-        image: 'BLARGH'
-    });
+// (async () => {
+//     const booster = new Booster({
+//         name: 'test',
+//         price: 12,
+//         quantity: 12,
+//         image: 'test'
+//     });
 
-    await test.save();
-    console.log('saved precon');
-})();
+//     await booster.save();
+//     console.log('saved');
+// })();
