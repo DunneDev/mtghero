@@ -8,6 +8,7 @@
 
 img {
     width: 100%;
+    border: solid black 2px;
 }
 
 #grid-container,
@@ -55,10 +56,6 @@ img {
     min-width: 12.5rem;
     aspect-ratio: 1;
     margin-bottom: 1rem;
-}
-
-#catagories img {
-    border: solid black 2px;
 }
 
 @media screen and (max-width: 1000px) {
