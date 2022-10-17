@@ -130,6 +130,16 @@ app.get('/precons', async (req, res) => {
     });
 });
 
+// specific precon for sale
+app.get('/precons/:id', async (req, res) => {
+    const precon = await Precon.findById(req.params.id);
+    res.render('precons/show_precon', {
+        precon,
+        title: precon.name,
+        css: ['show.css']
+    });
+});
+
 // all boosters
 app.get('/boosters', async (req, res) => {
     const boosters = await Booster.find({ quantity: { $gt: 0 } });
@@ -138,6 +148,16 @@ app.get('/boosters', async (req, res) => {
         boosters,
         title: 'Shop Boosters',
         css: ['gallery.css']
+    });
+});
+
+// specific precon for sale
+app.get('/boosters/:id', async (req, res) => {
+    const booster = await Booster.findById(req.params.id);
+    res.render('boosters/show_booster', {
+        booster,
+        title: booster.name,
+        css: ['show.css']
     });
 });
 
