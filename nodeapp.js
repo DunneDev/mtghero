@@ -261,7 +261,7 @@ app.get('/contact', (req, res) => {
 
 // Terms and Conditions
 app.get('/terms', (req, res) => {
-    res.render('terms', { title: 'Terms and Conditions', css: [] });
+    res.render('terms', { title: 'Terms and Conditions', css: ['terms.css'] });
 });
 
 // Start Server

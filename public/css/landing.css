@@ -18,7 +18,6 @@ img {
 
 #grid-container {
     display: grid;
-    background-color: blue;
     aspect-ratio: 1.5;
     margin: 2rem auto;
     grid-template: repeat(8, 1fr) / 75% 25%;
@@ -29,22 +28,18 @@ img {
 }
 
 #deals {
-    background-color: blueviolet;
     grid-area: 1 / 1 / 6 / 2;
 }
 
 #promo1 {
-    background-color: burlywood;
     grid-area: 1 / 2 / 5 / 3;
 }
 
 #promo2 {
-    background-color: crimson;
     grid-area: 5 / 2 / 9 / 3;
 }
 
 #top-sellers {
-    background-color: chartreuse;
     grid-area: 6 / 1 / 9 / 2;
 }
 
