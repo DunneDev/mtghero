@@ -2,14 +2,17 @@
 <main>
   <h1><%= card.name %></h1>
   <div id="card-container">
-    <img src="<%= card.images.small %>" alt="<%= card.name %>" />
-    <form action="/singles/<%= card.id %>" method="post">
-      <div id="options-container">
+    <img src="<%= card.images.normal %>" alt="<%= card.name %>" />
+    <div id="options-container">
+      <form action="/singles/<%= card.id %>" method="post">
+
         <p><%= card.quantity %> in stock</p>
         <input type="number" name="quantity" id="quantity" value="1" min="1" max="<%= card.quantity %>">
         <button>Add to cart</button>
-      </div>
-    </form>
+
+
+      </form>
+      <form action="/singles"><button>Back</button></form>
+    </div>
   </div>
-  <a href="/singles">Back</a>
 </main>
