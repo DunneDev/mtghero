@@ -10,6 +10,7 @@
         <p>$<%= card.prices.usd %>
         </p>
         <form action="/sell/card/<%= card.id %>">
+          <input name="q" value="<%= query %>" type="text" hidden />
           <button type="submit">More Info</button>
         </form>
       </div>

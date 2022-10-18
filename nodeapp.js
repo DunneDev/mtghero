@@ -189,7 +189,12 @@ app.post('/checkout', async (req, res) => {
 // page to add card to buylist
 app.get('/sell/card/:id', async (req, res) => {
     const card = await Card.findOne({ id: req.params.id });
-    res.render('sell/card', { card, title: card.name, css: [] });
+    res.render('sell/card', {
+        card,
+        title: card.name,
+        query: req.query.q,
+        css: ['show.css']
+    });
 });
 
 // add card to buylist
