@@ -35,7 +35,7 @@
     <div class="card-container">
       <h3 class="card-name"><%= card.name %></h3>
       <img src="<%= card.images.small %> " alt="<%= card.name %>" />
-      <div class="card-info">
+      <details class="card-info">
         <p>$<%= card.price %>
         </p>
         <p>
@@ -44,7 +44,7 @@
         <form action="/singles/<%= card.id %>">
           <button type="submit">More Info</button>
         </form>
-      </div>
+      </details>
     </div>
     <% } %>
   </div>

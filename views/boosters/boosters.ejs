@@ -6,7 +6,7 @@
     <div class="card-container">
       <h3 class="card-name"><%= booster.name %></h3>
       <img src="/images/boosters/<%= booster.image %>" alt="<%= booster.name %>" />
-      <div class="card-info">
+      <details class="card-info">
         <p>$<%= booster.price %>
         </p>
         <p>
@@ -15,7 +15,7 @@
         <form action="/boosters/<%= booster._id %>">
           <button type="submit">More Info</button>
         </form>
-      </div>
+      </details>
     </div>
     <% } %>
   </div>

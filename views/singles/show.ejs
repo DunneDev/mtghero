@@ -3,7 +3,7 @@
   <h1><%= card.name %></h1>
   <div id="card-container">
     <img src="<%= card.images.normal %>" alt="<%= card.name %>" />
-    <div id="options-container">
+    <details id="options-container">
       <form action="/singles/<%= card.id %>" method="post">
 
         <p><%= card.quantity %> in stock</p>
@@ -13,6 +13,6 @@
 
       </form>
       <form action="/singles"><button>Back</button></form>
-    </div>
+    </details>
   </div>
 </main>
