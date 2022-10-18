@@ -1,0 +1,42 @@
+p {
+    text-align: center;
+}
+
+table {
+    margin: auto;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 0.5rem 0.3rem;
+}
+
+thead,
+tfoot {
+    background-color: var(--blue-primary);
+    color: white;
+}
+
+th,
+tfoot td {
+    border: solid var(--blue-primary-border) 1px;
+}
+
+tbody tr {
+    background-color: var(--light-blue-primary);
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--light-blue-secondary);
+}
+
+td {
+    border: solid var(--light-blue-border) 1px;
+}
+
+form {
+    text-align: center;
+    margin: 0.7rem;
+}

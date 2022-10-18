@@ -250,27 +250,41 @@ app.get('/sell/search', async (req, res) => {
 
 // Page for cart
 app.get('/cart', async (req, res) => {
-    cart = [];
+    let cart = [];
+    let cartTotal = {
+        quantity: 0,
+        price: 0
+    };
     if (req.session.cart) {
         for (id in req.session.cart) {
             const card = await Card.findOne({ id });
             card.quantity = req.session.cart[id];
             cart.push(card);
+            cartTotal.quantity += card.quantity;
+            cartTotal.price += card.price * card.quantity;
         }
     }
-    buyList = [];
+    let buyList = [];
+    let buyListTotal = {
+        quantity: 0,
+        price: 0
+    };
     if (req.session.buyList) {
         for (id in req.session.buyList) {
             const card = await Card.findOne({ id });
             card.quantity = req.session.buyList[id];
             buyList.push(card);
+            buyListTotal.quantity += card.quantity;
+            buyListTotal.price += card.price * card.quantity;
         }
     }
     res.render('cart', {
         cart,
+        cartTotal,
         buyList,
+        buyListTotal,
         title: 'cart',
-        css: []
+        css: ['cart.css']
     });
 });
 

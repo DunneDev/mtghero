@@ -6,9 +6,9 @@ main {
     display: flex;
     justify-content: space-around;
     align-items: stretch;
-    border: solid var(--card-border) 1px;
+    border: solid var(--light-blue-border) 1px;
     border-radius: 1em;
-    background-color: var(--card-bg);
+    background-color: var(--light-blue-primary);
     padding: 0.5rem;
     max-width: 35rem;
     margin: 0 auto 1rem;

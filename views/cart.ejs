@@ -7,28 +7,33 @@
   <table>
     <thead>
       <tr>
-        <td>Item</td>
-        <td>Name</td>
-        <td>Quantity</td>
-        <td>Price</td>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
       </tr>
     </thead>
     <tbody>
       <% for (card of cart){ %>
       <tr>
-        <td><img src="<%= card.images.small %>" alt="<%= card.name %>" /></td>
         <td>
-          <p><%= card.name %></p>
+          <%= card.name %>
         </td>
         <td>
-          <p><%= card.quantity %></p>
+          <%= card.quantity %>
         </td>
         <td>
-          <p><%= card.price %></p>
+          $<%= card.price %>
         </td>
       </tr>
       <% } %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td>Total:</td>
+        <td><%= cartTotal.quantity %></td>
+        <td>$<%= cartTotal.price %></td>
+      </tr>
+    </tfoot>
   </table>
   <% } %>
 
@@ -37,28 +42,33 @@
   <table>
     <thead>
       <tr>
-        <td>Item</td>
-        <td>Name</td>
-        <td>Quantity</td>
-        <td>Price</td>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
       </tr>
     </thead>
     <tbody>
       <% for (card of buyList){ %>
       <tr>
-        <td><img src="<%= card.images.small %>" alt="<%= card.name %>" /></td>
         <td>
-          <p><%= card.name %></p>
+          <%= card.name %>
         </td>
         <td>
-          <p><%= card.quantity %></p>
+          <%= card.quantity %>
         </td>
         <td>
-          <p><%= card.price %></p>
+          $<%= card.price %>
         </td>
       </tr>
       <% } %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td>Total:</td>
+        <td><%= buyListTotal.quantity %></td>
+        <td>$<%= buyListTotal.price %></td>
+      </tr>
+    </tfoot>
   </table>
   <% } %>
 
