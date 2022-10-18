@@ -1,6 +1,7 @@
 <% layout('layouts/boilerplate') %>
 
 <main>
+  <% if (cart.length > 0 || buyList.length > 0){ %>
   <% if (cart.length > 0) {%>
   <h1>Cart</h1>
   <table>
@@ -65,4 +66,7 @@
   <form action="/checkout" method="POST">
     <button>Checkout</button>
   </form>
+  <% } else { %>
+  <p>Your cart is empty</p>
+  <% } %>
 </main>
