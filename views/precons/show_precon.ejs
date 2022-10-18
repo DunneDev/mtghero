@@ -3,7 +3,7 @@
   <h1><%= precon.name %></h1>
   <div id="card-container">
     <img src="/images/precons/<%= precon.image %>" alt="<%= precon.name %>" />
-    <details id="options-container">
+    <div id="options-container">
       <form>
 
         <p><%= precon.quantity %> in stock</p>
@@ -13,6 +13,6 @@
 
       </form>
       <form action="/precons"><button>Back</button></form>
-    </details>
+    </div>
   </div>
 </main>
