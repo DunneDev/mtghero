@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate') %>
+<main>
+  <h1><%= accessory.name %></h1>
+  <div id="card-container">
+    <img src="/images/accessories/<%= accessory.image %>" alt="<%= accessory.name %>" />
+    <div id="options-container">
+      <form>
+
+        <p><%= accessory.quantity %> in stock</p>
+        <input type="number" name="quantity" id="quantity" value="1" min="1" max="<%= accessory.quantity %>">
+        <button>Add to cart</button>
+
+
+      </form>
+      <form action="/accessories"><button>Back</button></form>
+    </div>
+  </div>
+</main>

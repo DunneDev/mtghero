@@ -7,6 +7,7 @@ const session = require('express-session');
 const Card = require('./models/card');
 const Precon = require('./models/precon');
 const Booster = require('./models/booster');
+const Accessory = require('./models/accessory');
 
 // Connect to db
 mongoose.connect('mongodb://localhost:27017/mtghero', {
@@ -151,12 +152,33 @@ app.get('/boosters', async (req, res) => {
     });
 });
 
-// specific precon for sale
+// specific booster for sale
 app.get('/boosters/:id', async (req, res) => {
     const booster = await Booster.findById(req.params.id);
     res.render('boosters/show_booster', {
         booster,
         title: booster.name,
+        css: ['show.css']
+    });
+});
+
+// all accessories
+app.get('/accessories', async (req, res) => {
+    const accessories = await Accessory.find({ quantity: { $gt: 0 } });
+
+    res.render('accessories/accessories', {
+        accessories,
+        title: 'Shop accessories',
+        css: ['gallery.css']
+    });
+});
+
+// specific accessory for sale
+app.get('/accessories/:id', async (req, res) => {
+    const accessory = await Accessory.findById(req.params.id);
+    res.render('accessories/show_accessories', {
+        accessory,
+        title: accessory.name,
         css: ['show.css']
     });
 });
@@ -334,7 +356,7 @@ async function downloadCard(apiCard) {
 }
 
 // (async () => {
-//     const booster = new Booster({
+//     const booster = new Accessory({
 //         name: 'test',
 //         price: 12,
 //         quantity: 12,
