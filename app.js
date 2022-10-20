@@ -354,15 +354,3 @@ async function downloadCard(apiCard) {
 
     return card.images;
 }
-
-// (async () => {
-//     const booster = new Accessory({
-//         name: 'test',
-//         price: 12,
-//         quantity: 12,
-//         image: 'test'
-//     });
-
-//     await booster.save();
-//     console.log('saved');
-// })();
