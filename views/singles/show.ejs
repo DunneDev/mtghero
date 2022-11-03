@@ -7,7 +7,8 @@
       <img src="<%= card.images.normal %>" alt="<%= card.name %>" />
       <div id="options-container">
         <form action="/singles/<%= card.id %>" method="post">
-
+          <p>$<%= card.price %>
+          </p>
           <p>
             <%= card.quantity %> in stock
           </p>
