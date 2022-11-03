@@ -354,3 +354,15 @@ async function downloadCard(apiCard) {
 
     return card.images;
 }
+
+// const entity = new Accessory({
+//     name: 'test',
+//     price: 10,
+//     quantity: 10,
+//     image: 'test'
+// });
+
+// (async () => {
+//     await entity.save();
+//     console.log('saved');
+// })();

@@ -15,10 +15,10 @@ db.once('open', () => {
 });
 
 const seedDB = async () => {
-    await Card.deleteMany({});
-    const entries = 200,
+    //await Card.deleteMany({});
+    const entries = 750,
         min = 3,
-        max = 20,
+        max = 120,
         len = cards.length;
     let ids = {};
     for (let i = 0; i < entries; i++) {
@@ -33,14 +33,6 @@ const seedDB = async () => {
         } else {
             cardImg = card.card_faces[0].image_uris;
         }
-        // if (card.card_faces) {
-        //     cardImg = card.card_faces[0].image_uris;
-        // } else {
-        //     cardImg = card.image_uris;
-        // }
-        // if (!cardImg) {
-        //     console.log(card);
-        // }
         const newCard = new Card({
             id: card.id,
             name: card.name,
