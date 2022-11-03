@@ -1,20 +1,23 @@
 <% layout('layouts/boilerplate') %>
-<main>
-  <h1>Search results for <%= query %></h1>
-  <div class="grid-container">
-    <% for (let card of cards){ %>
-    <div class="card-container">
-      <h3 class="card-name"><%= card.name %></h3>
-      <img src="<%= card.cardImg.small %>" alt="<%= card.name %>" />
-      <div class="card-info">
-        <p>$<%= card.prices.usd %>
-        </p>
-        <form action="/sell/card/<%= card.id %>">
-          <input name="q" value="<%= query %>" type="text" hidden />
-          <button type="submit">More Info</button>
-        </form>
-      </div>
+  <main>
+    <h1>Search results for <%= query %>
+    </h1>
+    <div class="grid-container">
+      <% for (let card of cards){ %>
+        <div class="product-container">
+          <h3 class="card-name">
+            <%= card.name %>
+          </h3>
+          <img src="<%= card.cardImg.small %>" alt="<%= card.name %>" />
+          <div class="card-info">
+            <p>$<%= card.prices.usd %>
+            </p>
+            <form action="/sell/card/<%= card.id %>">
+              <input name="q" value="<%= query %>" type="text" hidden />
+              <button type="submit">More Info</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
     </div>
-    <% } %>
-  </div>
-</main>
+  </main>

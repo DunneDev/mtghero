@@ -1,64 +1,72 @@
 <% layout('layouts/boilerplate') %>
-<main>
-  <h1>Singles</h1>
-  <div id="search-options">
-    <form id="search-form">
-      <div>
-        <input type="text" name="q" id="search" value="<%= search %>" />
-        <button type="submit">Search</button>
-      </div>
-    </form>
-    <div id="page-options">
-      <form id="limit-form">
-        <label for="limit">Limit</label>
-        <select name="l" id="limit">
-          <option value="5" <% if (limit === 5){ %>selected="selected" <% } %>>5</option>
-          <option value="10" <% if (limit === 10){ %>selected="selected" <% } %>>10</option>
-          <option value="20" <% if (limit === 20){ %>selected="selected" <% } %>>20</option>
-          <option value="30" <% if (limit === 30){ %>selected="selected" <% } %>>30</option>
-          <option value="40" <% if (limit === 40){ %>selected="selected" <% } %>>40</option>
-          <option value="60" <% if (limit === 60){ %>selected="selected" <% } %>>60</option>
-          <option value="70" <% if (limit === 70){ %>selected="selected" <% } %>>70</option>
-          <option value="80" <% if (limit === 80){ %>selected="selected" <% } %>>80</option>
-          <option value="90" <% if (limit === 90){ %>selected="selected" <% } %>>90</option>
-          <option value="100" <% if (limit === 100){ %>selected="selected" <% } %>>100</option>
-        </select>
+  <main>
+    <h1>Singles</h1>
+    <div id="search-options">
+      <form id="search-form">
+        <div>
+          <input type="text" name="q" id="search" value="<%= search %>" />
+          <button type="submit">Search</button>
+        </div>
       </form>
-      <p>Page <%= page %> of <%= pageMax %>
-        <button id="prev-button" <% if (page == 1){ %>hidden<% } %>>Prev</button>
-        <button id="next-button" <% if (page >= pageMax){ %>hidden<% } %>>Next</button>
-      </p>
-    </div>
-  </div>
-  <div class="grid-container">
-    <% for (let card of cards){ %>
-    <div class="card-container">
-      <h3 class="card-name"><%= card.name %></h3>
-      <img src="<%= card.images.small %> " alt="<%= card.name %>" />
-      <div class="card-info">
-        <p>$<%= card.price %>
-        </p>
-        <p>
-          <%= card.quantity %> in stock
-        </p>
-        <form action="/singles/<%= card.id %>">
-          <button type="submit">More Info</button>
+      <div id="page-options">
+        <form id="limit-form">
+          <label for="limit">Limit</label>
+          <select name="l" id="limit">
+            <option value="5" <% if (limit===5){ %>selected="selected" <% } %>>5</option>
+            <option value="10" <% if (limit===10){ %>selected="selected" <% } %>>10</option>
+            <option value="20" <% if (limit===20){ %>selected="selected" <% } %>>20</option>
+            <option value="30" <% if (limit===30){ %>selected="selected" <% } %>>30</option>
+            <option value="40" <% if (limit===40){ %>selected="selected" <% } %>>40</option>
+            <option value="60" <% if (limit===60){ %>selected="selected" <% } %>>60</option>
+            <option value="70" <% if (limit===70){ %>selected="selected" <% } %>>70</option>
+            <option value="80" <% if (limit===80){ %>selected="selected" <% } %>>80</option>
+            <option value="90" <% if (limit===90){ %>selected="selected" <% } %>>90</option>
+            <option value="100" <% if (limit===100){ %>selected="selected" <% } %>>100</option>
+          </select>
         </form>
+        <p>Page <%= page %> of <%= pageMax %>
+              <button id="prev-button" <% if (page==1){ %>hidden<% } %>>Prev</button>
+              <button id="next-button" <% if (page>= pageMax){ %>hidden<% } %>>Next</button>
+        </p>
       </div>
     </div>
-    <% } %>
+    <div class="grid-container">
+      <% for (let card of cards){ %>
+        <div class="product-container">
+          <h3 class="card-name">
+            <%= card.name %>
+          </h3>
+          <img src="<%= card.images.small %> " alt="<%= card.name %>" />
+          <div class="card-info">
+            <p>$<%= card.price %>
+            </p>
+            <p>
+              <%= card.quantity %> in stock
+            </p>
+            <form action="/singles/<%= card.id %>">
+              <button type="submit">More Info</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
+    </div>
+  </main>
+
+  <div hidden>
+    <div id="pageVal">
+      <%= page %>
+    </div>
+    <div id="limitVal">
+      <%= limit %>
+    </div>
+    <div id="searchVal">
+      <%= search %>
+    </div>
   </div>
-</main>
 
-<div hidden>
-  <div id="pageVal"><%= page %></div>
-  <div id="limitVal"><%= limit %></div>
-  <div id="searchVal"><%= search %></div>
-</div>
-
-<script>
+  <script>
   // const page = <%= page %>
   // const limit = <%= limit %>
   // const search = "<%= search %>"
-</script>
-<script src="/js/index.js"></script>
+  </script>
+  <script src="/js/index.js"></script>

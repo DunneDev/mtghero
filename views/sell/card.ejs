@@ -16,7 +16,7 @@
     <h1>
       <%= card.name %>
     </h1>
-    <div id="card-container">
+    <div class="product-container">
       <img src="<%= card.images.normal %>" alt="<%= card.name %>" />
       <div id="options-container">
         <form action="/sell/card/<%= card.id %>" method="POST">

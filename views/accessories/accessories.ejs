@@ -1,22 +1,24 @@
 <% layout('layouts/boilerplate') %>
-<main>
-  <h1>Accessories</h1>
-  <div class="grid-container">
-    <% for (let accessory of accessories){ %>
-    <div class="card-container">
-      <h3 class="card-name"><%= accessory.name %></h3>
-      <img src="/images/accessories/<%= accessory.image %>" alt="<%= accessory.name %>" />
-      <div class="card-info">
-        <p>$<%= accessory.price %>
-        </p>
-        <p>
-          <%= accessory.quantity %> in stock
-        </p>
-        <form action="/accessories/<%= accessory._id %>">
-          <button type="submit">More Info</button>
-        </form>
-      </div>
+  <main>
+    <h1>Accessories</h1>
+    <div class="grid-container">
+      <% for (let accessory of accessories){ %>
+        <div class="product-container">
+          <h3 class="card-name">
+            <%= accessory.name %>
+          </h3>
+          <img src="/images/accessories/<%= accessory.image %>" alt="<%= accessory.name %>" />
+          <div class="card-info">
+            <p>$<%= accessory.price %>
+            </p>
+            <p>
+              <%= accessory.quantity %> in stock
+            </p>
+            <form action="/accessories/<%= accessory._id %>">
+              <button type="submit">More Info</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
     </div>
-    <% } %>
-  </div>
-</main>
+  </main>

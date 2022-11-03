@@ -1,22 +1,24 @@
 <% layout('layouts/boilerplate') %>
-<main>
-  <h1>Boosters</h1>
-  <div class="grid-container">
-    <% for (let booster of boosters){ %>
-    <div class="card-container">
-      <h3 class="card-name"><%= booster.name %></h3>
-      <img src="/images/boosters/<%= booster.image %>" alt="<%= booster.name %>" />
-      <div class="card-info">
-        <p>$<%= booster.price %>
-        </p>
-        <p>
-          <%= booster.quantity %> in stock
-        </p>
-        <form action="/boosters/<%= booster._id %>">
-          <button type="submit">More Info</button>
-        </form>
-      </div>
+  <main>
+    <h1>Boosters</h1>
+    <div class="grid-container">
+      <% for (let booster of boosters){ %>
+        <div class="product-container">
+          <h3 class="card-name">
+            <%= booster.name %>
+          </h3>
+          <img src="/images/boosters/<%= booster.image %>" alt="<%= booster.name %>" />
+          <div class="card-info">
+            <p>$<%= booster.price %>
+            </p>
+            <p>
+              <%= booster.quantity %> in stock
+            </p>
+            <form action="/boosters/<%= booster._id %>">
+              <button type="submit">More Info</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
     </div>
-    <% } %>
-  </div>
-</main>
+  </main>

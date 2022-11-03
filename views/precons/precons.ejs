@@ -1,22 +1,24 @@
 <% layout('layouts/boilerplate') %>
-<main>
-  <h1>Precons</h1>
-  <div class="grid-container">
-    <% for (let precon of precons){ %>
-    <div class="card-container">
-      <h3 class="card-name"><%= precon.name %></h3>
-      <img src="/images/precons/<%= precon.image %>" alt="<%= precon.name %>" />
-      <div class="card-info">
-        <p>$<%= precon.price %>
-        </p>
-        <p>
-          <%= precon.quantity %> in stock
-        </p>
-        <form action="/precons/<%= precon._id %>">
-          <button type="submit">More Info</button>
-        </form>
-      </div>
+  <main>
+    <h1>Precons</h1>
+    <div class="grid-container">
+      <% for (let precon of precons){ %>
+        <div class="product-container">
+          <h3 class="card-name">
+            <%= precon.name %>
+          </h3>
+          <img src="/images/precons/<%= precon.image %>" alt="<%= precon.name %>" />
+          <div class="card-info">
+            <p>$<%= precon.price %>
+            </p>
+            <p>
+              <%= precon.quantity %> in stock
+            </p>
+            <form action="/precons/<%= precon._id %>">
+              <button type="submit">More Info</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
     </div>
-    <% } %>
-  </div>
-</main>
+  </main>

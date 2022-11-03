@@ -1,18 +1,22 @@
 <% layout('layouts/boilerplate') %>
-<main>
-  <h1><%= card.name %></h1>
-  <div id="card-container">
-    <img src="<%= card.images.normal %>" alt="<%= card.name %>" />
-    <div id="options-container">
-      <form action="/singles/<%= card.id %>" method="post">
+  <main>
+    <h1>
+      <%= card.name %>
+    </h1>
+    <div class="product-container">
+      <img src="<%= card.images.normal %>" alt="<%= card.name %>" />
+      <div id="options-container">
+        <form action="/singles/<%= card.id %>" method="post">
 
-        <p><%= card.quantity %> in stock</p>
-        <input type="number" name="quantity" id="quantity" value="1" min="1" max="<%= card.quantity %>">
-        <button>Add to cart</button>
+          <p>
+            <%= card.quantity %> in stock
+          </p>
+          <input type="number" name="quantity" id="quantity" value="1" min="1" max="<%= card.quantity %>">
+          <button>Add to cart</button>
 
 
-      </form>
-      <form action="/singles"><button>Back</button></form>
+        </form>
+        <form action="/singles"><button>Back</button></form>
+      </div>
     </div>
-  </div>
-</main>
+  </main>

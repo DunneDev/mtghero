@@ -2,19 +2,14 @@ main {
     text-align: center;
 }
 
-#card-container {
-    display: flex;
+.product-container {
     justify-content: space-around;
     align-items: stretch;
-    border: solid var(--light-blue-border) 1px;
-    border-radius: 1em;
-    background-color: var(--light-blue-primary);
-    padding: 0.5rem;
     max-width: 35rem;
     margin: 0 auto 1rem;
 }
 
-#card-container > * {
+.product-container > * {
     margin: 0 1em;
 }
 
@@ -41,7 +36,7 @@ form {
 }
 
 @media screen and (max-width: 525px) {
-    #card-container {
+    .product-container {
         flex-wrap: wrap;
     }
 
